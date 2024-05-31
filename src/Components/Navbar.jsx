@@ -24,11 +24,11 @@ const Navbar = () => {
             <ul className="navbar-nav ms-auto">
               <li className="nav-item ms-0 ms-md-3">
                 <Link
-                  to="/home"
-                  className="nav-link disabled"
+                  to="/profile"
+                  className="nav-link "
                   aria-current="page"
                 >
-                  Home
+                  Profile
                 </Link>
               </li>
               <li className="nav-item ms-0 ms-md-3">

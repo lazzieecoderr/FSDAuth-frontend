@@ -1,27 +1,35 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [role, setRole] = useState("");
   const [password, setPassword] = useState("");
-  const [msg, setMsg] = useState("");
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const payload = { username, email, password };
+    const payload = { username, email, password,role };
     await axios
       .post("http://localhost:5000/api/user/register-user", payload)
-      .then((res) => setMsg(res.data.message))
+      .then((res) => {
+        toast.success(res.data.message)
+        navigate("/login")
+      })
       .catch((error) => {
         console.log(error);
-        setMsg(error.data.message);
+       toast.error(error.response.data.message);
       });
     
-      setTimeout(()=>{
-     navigate("/login");
-      },1000)
+      setEmail('')
+      setPassword('')
+      setUsername('')
+      setRole('')
+      
     
   };
 
@@ -68,10 +76,26 @@ const Register = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </p>
+          <p>
+            <label htmlFor="password">Role:</label>
+            <input
+              type="text"
+              name="role"
+              id="role"
+              placeholder="Enter user role"
+              required
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+            />
+          </p>
           <button type="submit">Register</button>
         </fieldset>
       </form>
-      <h1>{msg}</h1>
+      <br />
+          <br />
+      <button><Link to='/'>Back</Link></button>
+          <br />
+      <button><Link to='/login'>Login</Link></button>
     </div>
   );
 };
