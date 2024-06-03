@@ -71,6 +71,9 @@ const Login = ({ setToken }) => {
       <button>
         <Link to="/">Back</Link>
       </button>
+      <button>
+        <Link to="/forgot-password">Forgot Password?</Link>
+      </button>
     </div>
   );
 };
